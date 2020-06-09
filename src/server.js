@@ -37,12 +37,17 @@ export default class Server {
   async setupApollo(schema) {
     const { app } = this;
 
-    const server = new ApolloServer({
-      ...schema,
-      onHealthCheck: () => new Promise((resolve) => resolve('I am OK')),
-    });
-    server.applyMiddleware({ app });
-    this.run();
+    try {
+      const server = new ApolloServer({
+        ...schema,
+        onHealthCheck: () => new Promise((resolve) => resolve('I am OK')),
+      });
+      server.applyMiddleware({ app });
+      this.run();
+    } catch (err) {
+      console.error(err);
+    }
+
 
     return this;
   }
