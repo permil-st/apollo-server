@@ -1,13 +1,32 @@
 import user from '../../service/User';
+import pubsub from '../pubsub';
+import constants from '../../constants/constants';
 
 export default {
   createTrainee: (parent, args) => {
     const { name, email, role } = args.user;
-    return user.createUser(name, email, role);
+    const result = user.createUser(name, email, role);
+    pubsub.publish(
+      constants.subscriptions.TRAINEE_ADD,
+      { addTrainee: result },
+    );
+    return result;
   },
   updateTrainee: (parent, args) => {
     const { name, role } = args.user;
-    return user.updateUser(args.id, name, role);
+    const result = user.updateUser(args.id, name, role);
+    pubsub.publish(
+      constants.subscriptions.TRAINEE_UPDATE,
+      { updateTrainee: result },
+    );
+    return result;
   },
-  deleteTrainee: (parent, args) => user.deleteUser(args.id),
+  deleteTrainee: (parent, args) => {
+    const result = user.deleteUser(args.id);
+    pubsub.publish(
+      constants.subscriptions.TRAINEE_DELETE,
+      { deleteTrainee: result },
+    );
+    return result;
+  },
 };

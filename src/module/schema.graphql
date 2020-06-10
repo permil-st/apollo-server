@@ -9,3 +9,9 @@ type Mutation {
   updateTrainee(id: ID!, user: userInput!): User!,
   deleteTrainee(id: ID!): ID!
 }
+
+type Subscription {
+  addTrainee: User!
+  updateTrainee: User!
+  deleteTrainee: ID!
+}
