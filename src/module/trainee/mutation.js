@@ -1,6 +1,6 @@
 import user from '../../service/User';
 import pubsub from '../pubsub';
-import constants from '../../constants/constants';
+import constants from '../../lib';
 
 export default {
   createTrainee: (parent, args) => {
