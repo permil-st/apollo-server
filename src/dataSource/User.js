@@ -7,6 +7,10 @@ class UserApi extends RESTDataSource {
     this.baseURL = `${config.serviceUrl}/api/user`;
   }
 
+  willSendRequest(request) {
+    request.headers.set('Authorization', this.context.token);
+  }
+
   loginUser(payload) {
     return this.post('/login', payload);
   }

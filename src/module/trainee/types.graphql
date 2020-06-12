@@ -1,5 +1,16 @@
-input userInput {
+input TraineeInput {
+  name: String!
+  email: String!
+  password: String!
+}
+
+type CreatedTrainee {
   name: String!
   email: String!
   role: String!
+}
+
+type AllTrainees {
+  count: Int!
+  records: [User!]!
 }
