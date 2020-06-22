@@ -4,6 +4,13 @@ input TraineeInput {
   password: String!
 }
 
+type UpdatedTrainee {
+  originalId: ID!
+  name: String!
+  email: String!
+  password: String!
+}
+
 type CreatedTrainee {
   name: String!
   email: String!

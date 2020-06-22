@@ -36,7 +36,11 @@ export default {
 
       pubsub.publish(
         constants.subscriptions.TRAINEE_UPDATE,
-        { updateTrainee: result.data.id },
+        {
+          updateTrainee: {
+            originalId: result.data.id, name, email, password,
+          },
+        },
       );
 
       return result.data.id;
