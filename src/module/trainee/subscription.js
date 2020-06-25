@@ -1,4 +1,4 @@
-import constants from '../../constants/constants';
+import { constants } from '../../lib';
 import pubsub from '../pubsub';
 
 export default {

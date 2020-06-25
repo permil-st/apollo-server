@@ -5,6 +5,8 @@ import helmet from 'helmet';
 import http from 'http';
 import { ApolloServer } from 'apollo-server-express';
 
+import { UserApi, TraineeApi } from './dataSource';
+
 export default class Server {
   constructor(config) {
     this.app = express();
@@ -41,6 +43,10 @@ export default class Server {
     try {
       const server = new ApolloServer({
         ...schema,
+        dataSources: () => ({
+          userApi: new UserApi(),
+          traineeApi: new TraineeApi(),
+        }),
         onHealthCheck: () => new Promise((resolve) => resolve('I am OK')),
       });
       server.applyMiddleware({ app });
