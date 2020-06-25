@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import compress from 'compression';
 import helmet from 'helmet';
+import http from 'http';
 import { ApolloServer } from 'apollo-server-express';
 
 export default class Server {
@@ -43,25 +44,21 @@ export default class Server {
         onHealthCheck: () => new Promise((resolve) => resolve('I am OK')),
       });
       server.applyMiddleware({ app });
+      this.server = http.createServer(app);
+      server.installSubscriptionHandlers(this.server);
       this.run();
     } catch (err) {
       console.error(err);
     }
-
 
     return this;
   }
 
   run() {
     const { port, env } = this.config;
-    const { app } = this;
 
-    app.listen(port, (err) => {
-      if (err) {
-        return console.error(err);
-      }
-
-      return console.log(`server started on port ${port} (${env})`);
+    this.server.listen(port, () => {
+      console.log(`server started on port ${port} (${env})`);
     });
 
     return this;
