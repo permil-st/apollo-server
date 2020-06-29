@@ -8,11 +8,14 @@ export default {
       const result = await userApi.getMe();
       return result.data;
     } catch (err) {
-      if (err.extensions.response.status === 422) {
-        throw new ValidationError(err.extensions.response.body.message);
+      const { response } = err.extensions;
+      const { message } = response.body;
+
+      if (response.status === 422) {
+        throw new ValidationError(message);
       }
 
-      throw new AuthenticationError(err.extensions.response.body.message);
+      throw new AuthenticationError(message);
     }
   },
 };

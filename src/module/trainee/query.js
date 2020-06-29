@@ -9,25 +9,37 @@ export default {
       const result = await traineeApi.getTrainee({ skip, limit });
       return result.data;
     } catch (err) {
-      if (err.extensions.response.status === 422) {
-        throw new ValidationError(err.extensions.response.body.message);
+      const { response } = err.extensions;
+      const { message } = response.body;
+
+      if (response.status === 422) {
+        throw new ValidationError(message);
       }
 
-      throw new AuthenticationError(err.extensions.response.body.message);
+      throw new AuthenticationError(message);
     }
   },
-  getTrainee: async (parent, args, context) => {
-    const { traineeApi } = context.dataSources;
-
+  getTrainee: async (parent, args) => {
     try {
-      const result = await traineeApi.getTraineeById(args.id);
-      return result.data;
+      // const result = await traineeApi.getTraineeById(args.id);
+      const result = {
+        name: 'permil Garg',
+        _id: '5eec5b8e5e765400520a66c6',
+        originalId: args.id,
+        email: 'garg.permil@successive.tech',
+        role: 'trainee',
+        createdAt: '2020-06-18T09:40:08.364Z',
+      };
+      return result;
     } catch (err) {
-      if (err.extensions.response.status === 422) {
-        throw new ValidationError(err.extensions.response.body.message);
+      const { response } = err.extensions;
+      const { message } = response.body;
+
+      if (response.status === 422) {
+        throw new ValidationError(message);
       }
 
-      throw new AuthenticationError(err.extensions.response.body.message);
+      throw new AuthenticationError(message);
     }
   },
 };

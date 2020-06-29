@@ -1,5 +1,5 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
-import config from '../config/configrations';
+import { configrations as config } from '../config';
 
 class UserApi extends RESTDataSource {
   constructor() {
