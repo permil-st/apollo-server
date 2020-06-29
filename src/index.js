@@ -1,4 +1,4 @@
-import config from './config/configrations';
+import { configrations as config } from './config';
 import schema from './module';
 import Server from './server';
 

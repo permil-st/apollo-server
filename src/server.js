@@ -47,6 +47,13 @@ export default class Server {
           userApi: new UserApi(),
           traineeApi: new TraineeApi(),
         }),
+        context: ({ req }) => {
+          if (req) {
+            return { token: req.headers.authorization };
+          }
+
+          return {};
+        },
         onHealthCheck: () => new Promise((resolve) => resolve('I am OK')),
       });
       server.applyMiddleware({ app });
